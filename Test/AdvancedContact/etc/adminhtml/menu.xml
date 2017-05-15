@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Test_AdvancedContact::main" title="Test Module" module="Test_AdvancedContact" sortOrder="99" resource="Test_AdvancedContact::main"/>
+        <add id="Test_AdvancedContact::contact" title="Contacts" module="Test_AdvancedContact" sortOrder="10" action="test_advancedcontact/contact" resource="Test_AdvancedContact::contact" parent="Test_AdvancedContact::main"/>
+    </menu>
+</config>

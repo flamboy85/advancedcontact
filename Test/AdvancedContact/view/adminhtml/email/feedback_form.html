@@ -1,0 +1,12 @@
+<!--@subject {{trans "Contact Feedback Form"}} @-->
+<!--@vars {
+"var data.subject":"Subject",
+"var data.content":"Content",
+"var data.email":"Contact Email",
+"var data.name":"Contact Name",
+"var data.telephone":"Contact Telephone"
+} @-->
+
+{{trans "Subject: %subject" subject=$data.subject}}
+
+{{trans "Content: %content" content=$data.content}}

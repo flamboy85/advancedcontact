@@ -2,10 +2,6 @@
 
 namespace Test\AdvancedContact\Model\ResourceModel;
 
-/**
- * Class Contact
- * @package Test\AdvancedContact\Model\ResourceModel
- */
 class Contact extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
     /**

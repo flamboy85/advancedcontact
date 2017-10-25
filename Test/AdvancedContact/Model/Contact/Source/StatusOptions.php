@@ -2,10 +2,6 @@
 
 namespace Test\AdvancedContact\Model\Contact\Source;
 
-/**
- * Class StatusOptions
- * @package Test\AdvancedContact\Model\Contact\Source
- */
 class StatusOptions implements \Magento\Framework\Option\ArrayInterface
 {
     /**

@@ -1,11 +1,17 @@
 <?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <contact>
             <advanced_contact>
                 <enabled>1</enabled>
                 <feedback_sender_email_identity>custom2</feedback_sender_email_identity>
-                <feedback_email_template>contact_email_email_template</feedback_email_template>
+                <feedback_email_template>contact_advanced_contact_feedback_email_template</feedback_email_template>
             </advanced_contact>
         </contact>
     </default>

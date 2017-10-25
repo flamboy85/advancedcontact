@@ -1,5 +1,20 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <!--<update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Test\AdvancedContact\Block\Adminhtml\Contact\Edit" name="test_advancedcontact_contact_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Test\AdvancedContact\Block\Adminhtml\Contact\Edit\Tabs" name="test_advancedcontact_contact_tabs">
+                <block class="Test\AdvancedContact\Block\Adminhtml\Contact\Edit\Tab\Contact" name="test_advancedcontact_contact_edit_tab_contact"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">contact</argument>
+                    <argument name="block" xsi:type="string">test_advancedcontact_contact_edit_tab_contact</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>-->
     <update handle="styles"/>
     <update handle="editor"/>
     <body>

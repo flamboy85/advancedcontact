@@ -24,15 +24,14 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
      */
     protected $loadedData;
 
-
     /**
-     * DataProvider constructor.
+     * Constructor
+     *
      * @param string $name
      * @param string $primaryFieldName
      * @param string $requestFieldName
      * @param CollectionFactory $contactCollectionFactory
      * @param DataPersistorInterface $dataPersistor
-     * @param \Test\AdvancedContact\Helper\Data $helper
      * @param array $meta
      * @param array $data
      */

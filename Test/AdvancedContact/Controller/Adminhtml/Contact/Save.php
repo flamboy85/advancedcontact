@@ -4,6 +4,7 @@ namespace Test\AdvancedContact\Controller\Adminhtml\Contact;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\Exception\LocalizedException;
+use Test\AdvancedContact\Model\Contact;
 use Test\AdvancedContact\Model\Contact\Source\StatusOptions;
 
 /**
@@ -18,17 +19,20 @@ class Save extends \Test\AdvancedContact\Controller\Adminhtml\Contact
     protected $dataPersistor;
 
     /**
+     * Save constructor.
      * @param Context $context
+     * @param \Test\AdvancedContact\Api\ContactRepositoryInterface $contactRepository
      * @param \Magento\Framework\Registry $coreRegistry
      * @param DataPersistorInterface $dataPersistor
      */
     public function __construct(
         Context $context,
+        \Test\AdvancedContact\Api\ContactRepositoryInterface $contactRepository,
         \Magento\Framework\Registry $coreRegistry,
         DataPersistorInterface $dataPersistor
     ) {
         $this->dataPersistor = $dataPersistor;
-        parent::__construct($context, $coreRegistry);
+        parent::__construct($context, $contactRepository, $coreRegistry);
     }
 
     /**
@@ -53,7 +57,7 @@ class Save extends \Test\AdvancedContact\Controller\Adminhtml\Contact
             }
 
             /** @var \Test\AdvancedContact\Model\Contact $model */
-            $model = $this->_objectManager->create('Test\AdvancedContact\Model\Contact')->load($id);
+            $model = $this->contactRepository->getById($id);
             if (!$model->getId() && $id) {
                 $this->messageManager->addErrorMessage(__('This contact no longer exists.'));
                 return $resultRedirect->setPath('*/*/');
@@ -62,7 +66,7 @@ class Save extends \Test\AdvancedContact\Controller\Adminhtml\Contact
             $model->setData($data);
 
             try {
-                $model->save();
+                $this->contactRepository->save($model);
                 $this->messageManager->addSuccessMessage(__('You saved the contact.'));
                 $this->dataPersistor->clear('advanced_contact');
 

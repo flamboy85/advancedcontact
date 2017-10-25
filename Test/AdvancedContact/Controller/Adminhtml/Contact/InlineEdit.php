@@ -2,6 +2,8 @@
 
 namespace Test\AdvancedContact\Controller\Adminhtml\Contact;
 
+use Test\AdvancedContact\Api\ContactRepositoryInterface;
+
 /**
  * Class InlineEdit
  * @package Test\AdvancedContact\Controller\Adminhtml\Contact
@@ -18,25 +20,25 @@ class InlineEdit extends \Magento\Backend\App\Action
     /**
      * Contact Factory
      *
-     * @var \Test\AdvancedContact\Model\ContactFactory
+     * @var ContactRepositoryInterface
      */
-    protected $_contactFactory;
+    protected $contactRepository;
 
     /**
      * constructor
      *
      * @param \Magento\Framework\Controller\Result\JsonFactory $jsonFactory
-     * @param \Test\AdvancedContact\Model\ContactFactory $contactFactory
+     * @param ContactRepositoryInterface $contactRepository
      * @param \Magento\Backend\App\Action\Context $context
      */
     public function __construct(
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
-        \Test\AdvancedContact\Model\ContactFactory $contactFactory,
+        ContactRepositoryInterface $contactRepository,
         \Magento\Backend\App\Action\Context $context
     )
     {
         $this->_jsonFactory = $jsonFactory;
-        $this->_contactFactory = $contactFactory;
+        $this->contactRepository = $contactRepository;
         parent::__construct($context);
     }
 
@@ -58,11 +60,11 @@ class InlineEdit extends \Magento\Backend\App\Action
         }
         foreach (array_keys($contactItems) as $contactId) {
             /** @var \Test\AdvancedContact\Model\Contact $contact */
-            $contact = $this->_contactFactory->getById($contactId);
+            $contact = $this->contactRepository->getById($contactId);
             try {
                 $contactData = $contactItems[$contactId];//todo: handle dates
                 $contact->addData($contactData);
-                $contact->save();
+                $this->contactRepository->save($contact);
             } catch (\Magento\Framework\Exception\LocalizedException $e) {
                 $messages[] = $this->getErrorWithContactId($contact, $e->getMessage());
                 $error = true;

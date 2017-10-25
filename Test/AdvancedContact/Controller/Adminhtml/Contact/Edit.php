@@ -13,17 +13,20 @@ class Edit extends \Test\AdvancedContact\Controller\Adminhtml\Contact
     protected $resultPageFactory;
 
     /**
+     * Edit constructor.
      * @param \Magento\Backend\App\Action\Context $context
+     * @param \Test\AdvancedContact\Api\ContactRepositoryInterface $contactRepository
      * @param \Magento\Framework\Registry $coreRegistry
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
+        \Test\AdvancedContact\Api\ContactRepositoryInterface $contactRepository,
         \Magento\Framework\Registry $coreRegistry,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory
     ) {
         $this->resultPageFactory = $resultPageFactory;
-        parent::__construct($context, $coreRegistry);
+        parent::__construct($context, $contactRepository, $coreRegistry);
     }
 
     /**
@@ -34,33 +37,26 @@ class Edit extends \Test\AdvancedContact\Controller\Adminhtml\Contact
      */
     public function execute()
     {
-        // 1. Get ID and create model
         $id = $this->getRequest()->getParam('contact_id');
-        $model = $this->_objectManager->create('Test\AdvancedContact\Model\Contact');
-
-        // 2. Initial checking
         if ($id) {
-            $model->load($id);
+            $model = $this->contactRepository->getById($id);
             if (!$model->getId()) {
                 $this->messageManager->addErrorMessage(__('This contact no longer exists.'));
                 /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
                 $resultRedirect = $this->resultRedirectFactory->create();
                 return $resultRedirect->setPath('*/*/');
             }
+            $this->_coreRegistry->register('test_advancedcontact_contact', $model);
         }
-
-        $this->_coreRegistry->register('test_advancedcontact_contact', $model);
-
-        // 5. Build edit form
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $this->initPage($resultPage)->addBreadcrumb(
             $id ? __('Edit Contact') : __('New Contact'),
             $id ? __('Edit Contact') : __('New Contact')
         );
-
-        $title = $model->getId() ? __('Edit Contact #').$model->getId() : __('New Contact');
+        $title = $id ? __('Edit Contact #').$id : __('New Contact');
         $resultPage->getConfig()->getTitle()->prepend($title);
+
         return $resultPage;
     }
 }

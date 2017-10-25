@@ -2,16 +2,12 @@
 
 namespace Test\AdvancedContact\Model\ResourceModel\Contact\Grid;
 
-/**
- * Class Collection
- * @package Test\AdvancedContact\Model\ResourceModel\Contact\Grid
- */
 class Collection extends \Test\AdvancedContact\Model\ResourceModel\Contact\Collection implements \Magento\Framework\Api\Search\SearchResultInterface
 {
     /**
      * Aggregations
      * 
-     * @var \Magento\Framework\Search\AggregationInterface
+     * @var \Magento\Framework\Api\Search\AggregationInterface
      */
     protected $_aggregations;
 
@@ -27,7 +23,7 @@ class Collection extends \Test\AdvancedContact\Model\ResourceModel\Contact\Colle
      * @param $eventObject
      * @param $resourceModel
      * @param $model
-     * @param $connection
+     * @param \Magento\Framework\DB\Adapter\AdapterInterface $connection
      * @param \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource
      */
     public function __construct(
@@ -40,7 +36,7 @@ class Collection extends \Test\AdvancedContact\Model\ResourceModel\Contact\Colle
         $eventObject,
         $resourceModel,
         $model = 'Magento\Framework\View\Element\UiComponent\DataProvider\Document',
-        $connection = null,
+        \Magento\Framework\DB\Adapter\AdapterInterface $connection = null,
         \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource = null
     )
     {
@@ -53,7 +49,7 @@ class Collection extends \Test\AdvancedContact\Model\ResourceModel\Contact\Colle
 
 
     /**
-     * @return \Magento\Framework\Search\AggregationInterface
+     * @return \Magento\Framework\Api\Search\AggregationInterface
      */
     public function getAggregations()
     {
@@ -61,12 +57,13 @@ class Collection extends \Test\AdvancedContact\Model\ResourceModel\Contact\Colle
     }
 
     /**
-     * @param \Magento\Framework\Search\AggregationInterface $aggregations
+     * @param \Magento\Framework\Api\Search\AggregationInterface $aggregations
      * @return $this
      */
     public function setAggregations($aggregations)
     {
         $this->_aggregations = $aggregations;
+        return $this;
     }
 
 

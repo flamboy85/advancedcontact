@@ -1,10 +1,6 @@
 <?php
 namespace Test\AdvancedContact\Controller\Adminhtml\Contact;
 
-/**
- * Class Index
- * @package Test\AdvancedContact\Controller\Adminhtml\Contact
- */
 class Index extends \Test\AdvancedContact\Controller\Adminhtml\Contact
 {
     /**
@@ -13,17 +9,20 @@ class Index extends \Test\AdvancedContact\Controller\Adminhtml\Contact
     protected $resultPageFactory;
 
     /**
+     * Index constructor.
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\Registry $coreRegistry
+     * @param \Test\AdvancedContact\Api\ContactRepositoryInterface $contactRepository
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Registry $coreRegistry,
+        \Test\AdvancedContact\Api\ContactRepositoryInterface $contactRepository,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory
     ) {
         $this->resultPageFactory = $resultPageFactory;
-        parent::__construct($context, $coreRegistry);
+        parent::__construct($context, $contactRepository, $coreRegistry);
     }
 
     /**

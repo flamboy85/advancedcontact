@@ -11,7 +11,8 @@ define([
              * Add custom action
              */
             actionSendFeedback: function () {
-                if (typeof  this.options.feedback_url != 'undefined') {
+                var url = this.options.feedback_url;
+                if (!url.length) {
                     alert({
                         content: $t('Feedback url not specified.')
                     });
@@ -20,7 +21,7 @@ define([
                 this.elems().forEach(this.validate, this);
 
                 if (this.valid) {
-                    this.sendFeedback(this.options.feedback_url);
+                    this.sendFeedback(url);
                     // this.closeModal();
                 }
             },
@@ -38,7 +39,7 @@ define([
                     complete: function (response) {
                         var status = JSON.parse(response.responseText);
                         if (typeof status.error != 'undefined') {
-                            alert({content: status.message});
+                            alert({content: message});
                         }
                         else {
                             window.location.reload();

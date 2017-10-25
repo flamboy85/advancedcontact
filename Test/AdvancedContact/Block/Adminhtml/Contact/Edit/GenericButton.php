@@ -3,7 +3,7 @@ namespace Test\AdvancedContact\Block\Adminhtml\Contact\Edit;
 
 use Magento\Backend\Block\Widget\Context;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Test\AdvancedContact\Model\ContactFactory;
+use Test\AdvancedContact\Api\ContactRepositoryInterface;
 
 /**
  * Class GenericButton
@@ -16,20 +16,20 @@ class GenericButton
     protected $context;
 
     /**
-     * @var ContactFactory
+     * @var ContactRepositoryInterface
      */
-    protected $contactFactory;
+    protected $contactRepository;
 
     /**
      * @param Context $context
-     * @param ContactFactory $contactFactory
+     * @param ContactRepositoryInterface $contactRepository
      */
     public function __construct(
         Context $context,
-        ContactFactory $contactFactory
+        ContactRepositoryInterface $contactRepository
     ) {
         $this->context = $context;
-        $this->contactFactory = $contactFactory;
+        $this->contactRepository = $contactRepository;
     }
 
     /**
@@ -40,7 +40,7 @@ class GenericButton
     public function getContactId()
     {
         try {
-            return $this->contactFactory->getById(
+            return $this->contactRepository->getById(
                 $this->context->getRequest()->getParam('contact_id')
             )->getId();
         } catch (NoSuchEntityException $e) {

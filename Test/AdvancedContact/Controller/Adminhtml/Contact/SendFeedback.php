@@ -1,7 +1,6 @@
 <?php
 namespace Test\AdvancedContact\Controller\Adminhtml\Contact;
 
-use Test\AdvancedContact\Model\ContactFactory;
 use Test\AdvancedContact\Model\Contact\Source\StatusOptions;
 /**
  * Class SendFeedback
@@ -31,36 +30,28 @@ class SendFeedback extends \Test\AdvancedContact\Controller\Adminhtml\Contact
      * @var \Magento\Framework\Mail\Template\TransportBuilder
      */
     protected $_transportBuilder;
-    /**
-     * Contact Factory
-     *
-     * @var ContactFactory
-     */
-    protected $_contactFactory;
-
 
     /**
      * SendFeedback constructor.
      * @param \Magento\Backend\App\Action\Context $context
+     * @param \Test\AdvancedContact\Api\ContactRepositoryInterface $contactRepository
      * @param \Magento\Framework\Registry $coreRegistry
      * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
      * @param \Test\AdvancedContact\Helper\Data $helper
      * @param \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder
-     * @param ContactFactory $_contactFactory
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
+        \Test\AdvancedContact\Api\ContactRepositoryInterface $contactRepository,
         \Magento\Framework\Registry $coreRegistry,
         \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
         \Test\AdvancedContact\Helper\Data $helper,
-        \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder,
-        ContactFactory $_contactFactory
+        \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder
     ) {
         $this->resultJsonFactory = $resultJsonFactory;
         $this->helper = $helper;
         $this->_transportBuilder = $transportBuilder;
-        $this->_contactFactory = $_contactFactory;
-        parent::__construct($context, $coreRegistry);
+        parent::__construct($context, $contactRepository, $coreRegistry);
     }
 
     /**
@@ -129,9 +120,8 @@ class SendFeedback extends \Test\AdvancedContact\Controller\Adminhtml\Contact
     protected function saveContact()
     {
         $id = $this->getRequest()->getParam('contact_id');
-        $contact = $this->_contactFactory->create();
         if ($id) {
-            $contact->load($id);
+            $contact = $this->contactRepository->getById($id);
             if (!$contact->getId()) {
                 $this->messageManager->addErrorMessage(__('This contact no longer exists.'));
             }

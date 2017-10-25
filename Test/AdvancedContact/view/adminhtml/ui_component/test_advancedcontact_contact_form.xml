@@ -152,7 +152,7 @@
         <button name="feedback_button">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="title" xsi:type="string">Send Feedback</item>
+                    <item name="title" xsi:type="string">Send Feedback to Contact</item>
                     <item name="actions" xsi:type="array">
                         <item name="0" xsi:type="array">
                             <item name="targetName" xsi:type="string">${ $.parentName}.feedback_modal</item>
@@ -232,7 +232,6 @@
                         <item name="dataScope" xsi:type="string">content</item>
                         <item name="validation" xsi:type="array">
                             <item name="required-entry" xsi:type="boolean">true</item>
-                            <item name="min_text_length" xsi:type="number">50</item>
                         </item>
                     </item>
                 </argument>

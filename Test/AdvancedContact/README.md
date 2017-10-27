@@ -18,7 +18,7 @@ EN
 php: 5.6.x, 7.x,
 
 6) Shop-Version
-Magento 2.0.x, 2.1.x, 2.2.x
+Magento 2.1.x, 2.2.x
 
 7) Installation
 Typical Magento 2 extensions installation. You need to disable "full_page" cache after installation

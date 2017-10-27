@@ -5,8 +5,8 @@
         <section id="contact" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
             <group id="advanced_contact" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Advanced Contacts</label>
-                <tab>general</tab>
-                <resource>Test_AdvancedContact::advanced_contact</resource>
+                <!--<tab>general</tab>
+                <resource>Test_AdvancedContact::advanced_contact</resource>-->
                 <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Enable Advanced Contacts</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
